@@ -1,4 +1,15 @@
 from sklearn.metrics import fbeta_score, precision_score, recall_score
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import GridSearchCV
+import logging
+
+
+logging.basicConfig(
+    filename="results.log",
+    level=logging.INFO,
+    filemode="w",
+    format="%(name)s - %(levelname)s - %(message)s",
+)
 
 
 # Optional: implement hyperparameter tuning.
@@ -17,8 +28,26 @@ def train_model(X_train, y_train):
     model
         Trained machine learning model.
     """
+    parameters = {
+        "n_estimators": [20, 30, 40],
+        "max_depth": [6, 12],
+        "min_samples_split": [15, 45, 95],
+    }
 
-    pass
+    clf = GridSearchCV(
+        RandomForestClassifier(
+            random_state=0,
+        ),
+        param_grid=parameters,
+        cv=3,
+        verbose=2,
+    )
+
+    clf.fit(X_train, y_train)
+    logging.info("********* Best parameters found ***********")
+    logging.info("BEST PARAMS: {clf.best_params_}")
+
+    return clf
 
 
 def compute_model_metrics(y, preds):
@@ -44,7 +73,7 @@ def compute_model_metrics(y, preds):
 
 
 def inference(model, X):
-    """ Run model inferences and return the predictions.
+    """Run model inferences and return the predictions.
 
     Inputs
     ------
@@ -57,4 +86,5 @@ def inference(model, X):
     preds : np.array
         Predictions from the model.
     """
-    pass
+    preds = model.predict(X)
+    return preds
