@@ -3,7 +3,7 @@ In this project, I train a Machine Learning model by following all best practice
 
 <p align="center">
   <a href="https://easybase.io">
-    <img src="starter/assets/Udacity_logo.png" alt="easybase logo black" width="380" height="250">
+    <img src="assets/Udacity_logo.png" alt="easybase logo black" width="380" height="250">
   </a>
 </p>
 
@@ -34,7 +34,7 @@ uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 The server will run on your localhost on the port 8000.
-![alt text](starter/assets/image.png)
+![alt text](assets/image.png)
 
 # Data
 
