@@ -76,15 +76,6 @@ class Data(BaseModel):
     }
 
 
-# @app.on_event("startup")
-# async def startup_event():
-#     logging.info("Loading model")
-#     global model, encoder, lb
-#     model, encoder, lb = load_model("./model")
-#     logging.info("Model loaded")
-
-
-# welcome message on the root
 @app.get("/")
 def read_root():
     response = Response(
@@ -94,7 +85,7 @@ def read_root():
     return response
 
 
-model, encoder, lb = joblib.load("./model/transformers.pkl")
+model, encoder, lb = joblib.load("./model/model.pkl")
 cat_features = [f for (f, t) in Data.__annotations__.items() if t == str]
 
 

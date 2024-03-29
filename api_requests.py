@@ -1,32 +1,38 @@
 import requests
+import json
 
-# The live API URL
 url = "https://nd0821-c3-starter-code-7h05.onrender.com/inference"
+# url = "http://localhost:8000/inference"
 
-# Sample data payload matching the Data model from your FastAPI app
 data = {
-    "age": 24,
-    "workclass": "State-gov",
-    "fnlgt": 584421,
-    "education": "Bachelors",
-    "education_num": 14,
-    "marital_status": "Separated",
-    "occupation": "Adm-clerical",
+    "age": 62,
+    "workclass": "Private",
+    "fnlgt": 57346,
+    "education": "Doctorate",
+    "education_num": 82,
+    "marital_status": "Never-married",
+    "occupation": "Exec-managerial",
     "relationship": "Not-in-family",
     "race": "White",
     "sex": "Male",
-    "capital_gain": 3,
-    "capital_loss": 2,
-    "hours_per_week": 24,
+    "capital_gain": 140,
+    "capital_loss": 0,
+    "hours_per_week": 67,
     "native_country": "United-States",
 }
 
-response = requests.post(url, json=data)
+# Convert the Python dictionary to a JSON string
+data_json = json.dumps(data)
 
-# Printing out the response from the server
+# Make the POST request, setting the correct headers for JSON content
+headers = {"Content-Type": "application/json"}
+response = requests.post(url, data=data_json, headers=headers)
+
+# Print out the response from the server
+print(response)
 if response.status_code == 200:
     print("Success:")
-    print(response.json())  # Assuming the response is JSON-formatted
+    print(response.text)  # Prints the response text directly
 else:
     print("Failed to get a successful response:")
     print(response.text)
