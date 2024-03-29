@@ -2,7 +2,12 @@
 
 from sklearn.model_selection import train_test_split
 from ml.data import process_data
-from ml.model import train_model, inference, compute_model_metrics
+from ml.model import (
+    train_model,
+    inference,
+    compute_model_metrics,
+    compute_slice_performances,
+)
 import pandas as pd
 import joblib
 import logging
@@ -61,3 +66,8 @@ joblib.dump((model, encoder, lb), "./model/model.pkl")
 with open("./results.txt", "w+") as f:
     txt = str(model.best_params_) + "\n" + str(results)
     f.write(txt)
+
+# compute slise metrics
+slice_metrics = compute_slice_performances(
+    test, cat_features, "marital-status", model, encoder, lb
+)

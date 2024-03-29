@@ -1,0 +1,7 @@
+Divorced: {'precision': 0.967741935483871, 'recall': 0.2912621359223301, 'fbeta': 0.44776119402985076}
+Married-civ-spouse: {'precision': 0.7853705486044273, 'recall': 0.6200607902735562, 'fbeta': 0.6929936305732484}
+Never-married: {'precision': 0.9666666666666667, 'recall': 0.2815533980582524, 'fbeta': 0.43609022556390975}
+Separated: {'precision': 1.0, 'recall': 0.3157894736842105, 'fbeta': 0.4799999999999999}
+Widowed: {'precision': 1.0, 'recall': 0.10526315789473684, 'fbeta': 0.1904761904761905}
+Married-spouse-absent: {'precision': 1.0, 'recall': 0.25, 'fbeta': 0.4}
+Married-AF-spouse: {'precision': 1.0, 'recall': 0.0, 'fbeta': 0.0}
