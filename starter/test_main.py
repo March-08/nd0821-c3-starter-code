@@ -15,7 +15,7 @@ def test_post_1():
     data = json.dumps(Data.model_config["json_schema_extra"]["examples"][0])
     r = client.post("/inference", data=data)
     assert r.status_code == 200
-    assert r.text == "<=50K"
+    assert r.text == ">50K"
 
 
 def test_post_2():

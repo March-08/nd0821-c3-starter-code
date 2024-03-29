@@ -40,19 +40,19 @@ class Data(BaseModel):
         "json_schema_extra": {
             "examples": [
                 {
-                    "age": 42,
+                    "age": 62,
                     "workclass": "Private",
                     "fnlgt": 57346,
                     "education": "Doctorate",
-                    "education_num": 42,
+                    "education_num": 82,
                     "marital_status": "Never-married",
                     "occupation": "Exec-managerial",
                     "relationship": "Not-in-family",
                     "race": "White",
-                    "sex": "Female",
-                    "capital_gain": 1454,
+                    "sex": "Male",
+                    "capital_gain": 140,
                     "capital_loss": 0,
-                    "hours_per_week": 35,
+                    "hours_per_week": 67,
                     "native_country": "United-States",
                 },
                 {
