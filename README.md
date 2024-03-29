@@ -1,43 +1,65 @@
-Working in a command line environment is recommended for ease of use with git and dvc. If on Windows, WSL1 or 2 is recommended.
+This is my solution to the final project of the Udacitu ML DevOps nanodegree.
+In this project, I train a Machine Learning model by following all best practices in order to maintain a clean and easy-deployable project.
 
-# Environment Set up
-* Download and install conda if you don’t have it already.
-    * Use the supplied requirements file to create a new environment, or
-    * conda create -n [envname] "python=3.8" scikit-learn pandas numpy pytest jupyter jupyterlab fastapi uvicorn -c conda-forge
-    * Install git either through conda (“conda install git”) or through your CLI, e.g. sudo apt-get git.
+<p align="center">
+  <a href="https://easybase.io">
+    <img src="starter/assets/Udacity_logo.png" alt="easybase logo black" width="380" height="250">
+  </a>
+</p>
 
-## Repositories
-* Create a directory for the project and initialize git.
-    * As you work on the code, continually commit changes. Trained models you want to use in production must be committed to GitHub.
-* Connect your local git repo to GitHub.
-* Setup GitHub Actions on your repo. You can use one of the pre-made GitHub Actions if at a minimum it runs pytest and flake8 on push and requires both to pass without error.
-    * Make sure you set up the GitHub Action to have the same version of Python as you used in development.
+<br />
+
+## Environment Set up
+
+- Download and install conda if you don’t have it already.
+  - Use the supplied requirements file to create a new environment, or
+  - conda create -n [envname] "python=3.8" scikit-learn pandas numpy pytest jupyter jupyterlab fastapi uvicorn -c conda-forge
+  - Install git either through conda (“conda install git”) or through your CLI, e.g. sudo apt-get git.
+
+## Run Server
+
+The API were created using FastAPI. This allows an easy interaction using the /docs endpoint.
+In order to run the server on localhost, we are going to use uvicorn.
+
+1. Enter in the starte/ directory
+
+```
+cd starter
+```
+
+2. Launch the server with uvicorn
+
+```
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+The server will run on your localhost on the port 8000.
+![alt text](starter/assets/image.png)
 
 # Data
-* Download census.csv and commit it to dvc.
-* This data is messy, try to open it in pandas and see what you get.
-* To clean it, use your favorite text editor to remove all spaces.
+
+Original data could be found in the data/ subdirectories.
+It is a CSV file with more 32K entries and 15 columns
+Following a sample of the data.
+
+| age | workclass        | fnlgt  | education | education-num | marital-status     | occupation        | relationship  | race  | sex  | capital-gain | capital-loss | hours-per-week | native-country | salary |
+| --- | ---------------- | ------ | --------- | ------------- | ------------------ | ----------------- | ------------- | ----- | ---- | ------------ | ------------ | -------------- | -------------- | ------ |
+| 39  | State-gov        | 77516  | Bachelors | 13            | Never-married      | Adm-clerical      | Not-in-family | White | Male | 2174         | 0            | 40             | United-States  | <=50K  |
+| 50  | Self-emp-not-inc | 83311  | Bachelors | 13            | Married-civ-spouse | Exec-managerial   | Husband       | White | Male | 0            | 0            | 13             | United-States  | <=50K  |
+| 38  | Private          | 215646 | HS-grad   | 9             | Divorced           | Handlers-cleaners | Not-in-family | White | Male | 0            | 0            |
 
 # Model
-* Using the starter code, write a machine learning model that trains on the clean data and saves the model. Complete any function that has been started.
-* Write unit tests for at least 3 functions in the model code.
-* Write a function that outputs the performance of the model on slices of the data.
-    * Suggestion: for simplicity, the function can just output the performance on slices of just the categorical features.
-* Write a model card using the provided template.
 
-# API Creation
-*  Create a RESTful API using FastAPI this must implement:
-    * GET on the root giving a welcome message.
-    * POST that does model inference.
-    * Type hinting must be used.
-    * Use a Pydantic model to ingest the body from POST. This model should contain an example.
-   	 * Hint: the data has names with hyphens and Python does not allow those as variable names. Do not modify the column names in the csv and instead use the functionality of FastAPI/Pydantic/etc to deal with this.
-* Write 3 unit tests to test the API (one for the GET and two for POST, one that tests each prediction).
+The trained model is a RandomForset.
+A Hyperparameter tuning was run to obtain the best possible model.
+The hyperparameters found are:
+
+| Hyperparameter      | Value |
+| ------------------- | ----- |
+| `max_depth`         | 12    |
+| `min_samples_split` | 45    |
+| `n_estimators`      | 20    |
 
 # API Deployment
-* Create a free Heroku account (for the next steps you can either use the web GUI or download the Heroku CLI).
-* Create a new app and have it deployed from your GitHub repository.
-    * Enable automatic deployments that only deploy if your continuous integration passes.
-    * Hint: think about how paths will differ in your local environment vs. on Heroku.
-    * Hint: development in Python is fast! But how fast you can iterate slows down if you rely on your CI/CD to fail before fixing an issue. I like to run flake8 locally before I commit changes.
-* Write a script that uses the requests module to do one POST on your live API.
+
+The app is deployed on Heroku
