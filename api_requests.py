@@ -24,15 +24,13 @@ data = {
 # Convert the Python dictionary to a JSON string
 data_json = json.dumps(data)
 
-# Make the POST request, setting the correct headers for JSON content
 headers = {"Content-Type": "application/json"}
 response = requests.post(url, data=data_json, headers=headers)
 
-# Print out the response from the server
 print(response)
 if response.status_code == 200:
     print("Success:")
-    print(response.text)  # Prints the response text directly
+    print(response.text)
 else:
     print("Failed to get a successful response:")
     print(response.text)
