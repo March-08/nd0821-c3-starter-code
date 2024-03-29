@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [3.8.19] # Replace 3.8 with your Python version
+        python-version: [3.8.18] # Replace 3.8 with your Python version
 
     steps:
       - uses: actions/checkout@v3
