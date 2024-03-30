@@ -1,6 +1,8 @@
 This is my solution to the final project of the Udacitu ML DevOps nanodegree.
 In this project, I train a Machine Learning model by following all best practices in order to maintain a clean and easy-deployable project.
 
+Link to github repo : https://github.com/March-08/nd0821-c3-starter-code/tree/master
+
 <p align="center">
   <a href="https://easybase.io">
     <img src="assets/Udacity_logo.png" alt="easybase logo black" width="380" height="250">
@@ -59,6 +61,50 @@ The hyperparameters found are:
 | `max_depth`         | 12    |
 | `min_samples_split` | 45    |
 | `n_estimators`      | 20    |
+
+# Test Cases
+
+Test cases example for the model:
+
+```json
+{
+  "age": 62,
+  "workclass": "Private",
+  "fnlgt": 57346,
+  "education": "Doctorate",
+  "education_num": 82,
+  "marital_status": "Never-married",
+  "occupation": "Exec-managerial",
+  "relationship": "Not-in-family",
+  "race": "White",
+  "sex": "Male",
+  "capital_gain": 140,
+  "capital_loss": 0,
+  "hours_per_week": 67,
+  "native_country": "United-States"
+}
+```
+
+```json
+{
+{
+"age": 24,
+"workclass": "State-gov",
+"fnlgt": 584421,
+"education": "Bachelors",
+"education_num": 14,
+"marital_status": "Separated",
+"occupation": "Adm-clerical",
+"relationship": "Not-in-family",
+"race": "White",
+"sex": "Male",
+"capital_gain": 3,
+"capital_loss": 2,
+"hours_per_week": 24,
+"native_country": "United-States",
+}
+}
+```
 
 # API Deployment
 

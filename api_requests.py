@@ -1,8 +1,8 @@
 import requests
 import json
 
-url = "https://nd0821-c3-starter-code-7h05.onrender.com/inference"
-# url = "http://localhost:8000/inference"
+# url = "https://nd0821-c3-starter-code-7h05.onrender.com/inference"
+url = "http://localhost:8000/inference"
 
 data = {
     "age": 62,
