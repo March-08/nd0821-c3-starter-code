@@ -118,7 +118,6 @@ def predict(data: Data):
         )
         pred = inference(model, data_processed)
         to_ret = lb.inverse_transform(pred[0])
-
         return Response(status_code=status.HTTP_200_OK, content=str(to_ret[0]))
     except Exception as e:
         return Response(status_code=status.HTTP_200_OK, content=str(e))
