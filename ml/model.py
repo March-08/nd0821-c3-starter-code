@@ -4,6 +4,7 @@ from sklearn.model_selection import GridSearchCV
 import logging
 from ml.data import process_data
 import pandas as pd
+import numpy as np
 
 logging.basicConfig(
     filename="results.log",
@@ -87,6 +88,8 @@ def inference(model, X):
     preds : np.array
         Predictions from the model.
     """
+
+    X_filled = np.nan_to_num(X, nan=0)
     preds = model.predict(X)
     return preds
 
