@@ -102,10 +102,6 @@ def predict(data: Data):
 
         # Assuming 'data' is your DataFrame and 'cat_features' is a list of categorical feature names
         num_features = data.select_dtypes(include=["int64", "float64"]).columns.tolist()
-        cat_features = [
-            col for col in cat_features if col in data.columns
-        ]  # Ensure cat_features are in data
-
         if num_features:
             data[num_features] = num_imputer.fit_transform(data[num_features])
         if cat_features:
