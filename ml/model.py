@@ -89,8 +89,7 @@ def inference(model, X):
         Predictions from the model.
     """
 
-    X_filled = np.nan_to_num(X, nan=0)
-    preds = model.predict(X_filled)
+    preds = model.predict(X)
     return preds
 
 

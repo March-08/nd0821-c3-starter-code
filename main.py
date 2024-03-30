@@ -98,6 +98,7 @@ def predict(data: Data):
             # Drop the 'salary' column
             data = data.drop("salary", axis=1)
 
+        data = data.dropna()
         data, *_ = process_data(
             data, categorical_features=cat_features, training=False, encoder=encoder
         )
