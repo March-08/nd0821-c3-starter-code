@@ -8,6 +8,8 @@ import os
 import numpy as np
 import pandas as pd
 import joblib
+import uvicorn
+
 from sklearn.impute import SimpleImputer
 
 logging.basicConfig(level=logging.INFO)
@@ -90,36 +92,37 @@ model, encoder, lb = joblib.load("./model/model.pkl")
 cat_features = [f for (f, t) in Data.__annotations__.items() if t == str]
 
 
-# model inference:
 @app.post("/inference")
 def predict(data: Data):
     try:
-        data = pd.DataFrame(data.__dict__, [0])
+        # Convert input data to DataFrame
+        data_df = pd.DataFrame([data.dict()])
 
-        # Impute missing values for numerical columns with mean and for categorical with the most frequent value
+        # Initialize imputers
         num_imputer = SimpleImputer(missing_values=np.nan, strategy="mean")
         cat_imputer = SimpleImputer(strategy="constant", fill_value="missing")
 
-        # Assuming 'data' is your DataFrame and 'cat_features' is a list of categorical feature names
-        num_features = data.select_dtypes(include=["int64", "float64"]).columns.tolist()
-        if num_features:
-            data[num_features] = num_imputer.fit_transform(data[num_features])
-        if cat_features:
-            data[cat_features] = cat_imputer.fit_transform(data[cat_features])
+        # Separate numerical and categorical columns
+        num_cols = data_df.select_dtypes(include=np.number).columns.tolist()
+        cat_cols = [col for col in cat_features if col in data_df.columns]
 
-        data, *_ = process_data(
-            data, categorical_features=cat_features, training=False, encoder=encoder
+        # Impute missing values
+        if num_cols:
+            data_df[num_cols] = num_imputer.fit_transform(data_df[num_cols])
+        if cat_cols:
+            data_df[cat_cols] = cat_imputer.fit_transform(data_df[cat_cols])
+
+        # Ensure 'process_data' and 'inference' functions are correctly handling the imputed DataFrame
+        data_processed, *_ = process_data(
+            data_df, categorical_features=cat_features, training=False, encoder=encoder
         )
+        pred = inference(model, data_processed)
+        to_ret = lb.inverse_transform(pred[0])
 
-        pred = inference(model, data)
-        to_ret = lb.inverse_transform(pred)[0]
-
-        return Response(
-            status_code=status.HTTP_200_OK,
-            content=to_ret,
-        )
+        return Response(status_code=status.HTTP_200_OK, content=to_ret[0])
     except Exception as e:
-        return Response(
-            status_code=status.HTTP_200_OK,
-            content=f"something didn't work: {str(e)} ",
-        )
+        return Response(status_code=status.HTTP_200_OK, content=str(e))
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
