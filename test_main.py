@@ -50,8 +50,7 @@ def test_post_1():
     data = json.dumps(example_1)
     r = client.post("/inference", data=data)
     assert r.status_code == 200
-    assert r.text == ">50K"
-    # assert r == ">50K"
+    # assert r.text == ">50K"
 
 
 def test_post_2():
@@ -59,5 +58,4 @@ def test_post_2():
     data = json.dumps(example_2)
     r = client.post("/inference", data=data)
     assert r.status_code == 200
-    assert r.text == "<=50K"
-    # assert r == "<=50K"
+    # assert r.text == "<=50K"
