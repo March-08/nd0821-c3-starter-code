@@ -94,6 +94,9 @@ cat_features = [f for (f, t) in Data.__annotations__.items() if t == str]
 def predict(data: Data):
     try:
         data = pd.DataFrame(data.__dict__, [0])
+        if "salary" in df.columns:
+            # Drop the 'salary' column
+            df = df.drop("salary", axis=1)
 
         data, *_ = process_data(
             data, categorical_features=cat_features, training=False, encoder=encoder
