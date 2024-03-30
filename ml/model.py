@@ -90,7 +90,7 @@ def inference(model, X):
     """
 
     X_filled = np.nan_to_num(X, nan=0)
-    preds = model.predict(X)
+    preds = model.predict(X_filled)
     return preds
 
 
