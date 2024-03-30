@@ -8,6 +8,7 @@ import os
 import numpy as np
 import pandas as pd
 import joblib
+from sklearn.impute import SimpleImputer
 
 logging.basicConfig(level=logging.INFO)
 
@@ -94,11 +95,22 @@ cat_features = [f for (f, t) in Data.__annotations__.items() if t == str]
 def predict(data: Data):
     try:
         data = pd.DataFrame(data.__dict__, [0])
-        if "salary" in data.columns:
-            # Drop the 'salary' column
-            data = data.drop("salary", axis=1)
 
-        data = data.dropna()
+        # Impute missing values for numerical columns with mean and for categorical with the most frequent value
+        num_imputer = SimpleImputer(missing_values=np.nan, strategy="mean")
+        cat_imputer = SimpleImputer(strategy="constant", fill_value="missing")
+
+        # Assuming 'data' is your DataFrame and 'cat_features' is a list of categorical feature names
+        num_features = data.select_dtypes(include=["int64", "float64"]).columns.tolist()
+        cat_features = [
+            col for col in cat_features if col in data.columns
+        ]  # Ensure cat_features are in data
+
+        if num_features:
+            data[num_features] = num_imputer.fit_transform(data[num_features])
+        if cat_features:
+            data[cat_features] = cat_imputer.fit_transform(data[cat_features])
+
         data, *_ = process_data(
             data, categorical_features=cat_features, training=False, encoder=encoder
         )
