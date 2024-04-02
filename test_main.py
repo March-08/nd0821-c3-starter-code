@@ -48,7 +48,8 @@ def test_get():
 def test_post_1():
     # data = json.dumps(Data.model_config["json_schema_extra"]["examples"][0])
     data = json.dumps(example_1)
-    r = client.post("/inference", data=data)
+    headers = {"Content-Type": "application/json"}
+    r = client.post("/inference", data=data, headers=headers)
     assert r.json() == {"prediction": ">50K"}
     # assert r.status_code == 200
     # assert r.text == ">50K"
@@ -57,7 +58,8 @@ def test_post_1():
 def test_post_2():
     # data = json.dumps(Data.model_config["json_schema_extra"]["examples"][1])
     data = json.dumps(example_2)
-    r = client.post("/inference", data=data)
+    headers = {"Content-Type": "application/json"}
+    r = client.post("/inference", data=data, headers=headers)
     assert r.json() == {"prediction": "<=50K"}
     # assert r.status_code == 200
     # assert r.text == "<=50K"
