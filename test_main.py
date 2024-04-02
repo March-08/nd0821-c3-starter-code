@@ -50,8 +50,7 @@ def test_post_1():
     data = json.dumps(example_1)
     headers = {"Content-Type": "application/json"}
     r = client.post("/inference", data=data, headers=headers)
-    # assert r.json() == {"prediction": ">50K"}
-    assert r.json() == ">50K"
+    assert r.json() == {"prediction": ">50K"}
 
     # assert r.status_code == 200
     # assert r.text == ">50K"
@@ -62,7 +61,6 @@ def test_post_2():
     data = json.dumps(example_2)
     headers = {"Content-Type": "application/json"}
     r = client.post("/inference", data=data, headers=headers)
-    # assert r.json() == {"prediction": "<=50K"}
-    assert r.json() == "<=50K"
+    assert r.json() == {"prediction": "<=50K"}
     # assert r.status_code == 200
     # assert r.text == "<=50K"
