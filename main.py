@@ -9,6 +9,8 @@ import numpy as np
 import pandas as pd
 import joblib
 import uvicorn
+from fastapi.responses import JSONResponse
+import json
 
 from sklearn.impute import SimpleImputer
 
@@ -119,7 +121,8 @@ def predict(data: Data):
         pred = inference(model, data_processed)
         to_ret = lb.inverse_transform(pred[0])
         # return Response(status_code=status.HTTP_200_OK, content=str(to_ret[0]))
-        return {"prediction": f"{to_ret[0]}"}
+        # return json.dumps({"prediction": f"{to_ret[0]}"})
+        return JSONResponse(content=to_ret[0])
     except Exception as e:
         return Response(status_code=status.HTTP_200_OK, content=str(e))
 
