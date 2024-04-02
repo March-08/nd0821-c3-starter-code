@@ -46,37 +46,33 @@ def test_get():
 
 
 def test_post_1():
-    # data = json.dumps(Data.model_config["json_schema_extra"]["examples"][0])
-    data = json.dumps(example_1)
-    headers = {"Content-Type": "application/json"}
-    r = client.post("/inference", data=data, headers=headers)
-    assert r.status_code == 200
-    response_data = r.json()
-    assert "prediction" in response_data or "error" in response_data
-    if "prediction" in response_data:
-        assert response_data == {"prediction": ">50K"}, r.text
-    else:
-        # Log or handle error case
-        print("Error during inference:", response_data.get("error"))
+    url = "/inference"  # Use the relative URL for the endpoint
 
-    # assert r.status_code == 200
-    # assert r.text == ">50K"
+    data = {
+        "age": 62,
+        "workclass": "Private",
+        "fnlgt": 57346,
+        "education": "Doctorate",
+        "education_num": 82,
+        "marital_status": "Never-married",
+        "occupation": "Exec-managerial",
+        "relationship": "Not-in-family",
+        "race": "White",
+        "sex": "Male",
+        "capital_gain": 140,
+        "capital_loss": 0,
+        "hours_per_week": 67,
+        "native_country": "United-States",
+    }
+    headers = {"Content-Type": "application/json"}
+    response = client.post(url, json=data, headers=headers)
+    assert response.status_code == 200
+    assert response.json() == "<=50K"
 
 
 def test_post_2():
-    # data = json.dumps(Data.model_config["json_schema_extra"]["examples"][1])
     data = json.dumps(example_2)
     headers = {"Content-Type": "application/json"}
-    r = client.post("/inference", data=data, headers=headers)
-    response_data = r.json()
-    assert "prediction" in response_data or "error" in response_data
-    if "prediction" in response_data:
-        assert response_data == {"prediction": "<=50K"}, r.text
-    else:
-        # Log or handle error case
-        print("Error during inference:", response_data.get("error"))
-
-    # assert r.status_code == 200
-    # assert r.json() == {"prediction": "<=50K"}
-    # assert r.status_code == 200
-    # assert r.text == "<=50K"
+    response = client.post("/inference", data=data, headers=headers)
+    assert response.status_code == 200
+    assert response.json() == "<=50K"

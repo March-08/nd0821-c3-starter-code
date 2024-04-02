@@ -2,6 +2,17 @@ import numpy as np
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 
 
+def cleaning(data_processed):
+    initial_list = list(data_processed[0][0:5])
+    zeros_needed = 108 - len(initial_list)
+
+    # Append zeros to the list
+    initial_list += [0] * zeros_needed
+
+    data_processed = [initial_list]
+    return data_processed
+
+
 def process_data(
     X, categorical_features=[], label=None, training=True, encoder=None, lb=None
 ):

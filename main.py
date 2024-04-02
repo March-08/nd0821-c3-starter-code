@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Body, Response, status
 from pydantic import BaseModel
 from ml.model import inference
-from ml.data import process_data
+from ml.data import process_data, cleaning
 import logging
 from pydantic import BaseModel
 import os
@@ -97,7 +97,7 @@ cat_features = [f for (f, t) in Data.__annotations__.items() if t == str]
 @app.post("/inference")
 def predict(data: Data):
     try:
-        # Convert input data to DataFrame
+
         data_df = pd.DataFrame([data.dict()])
 
         # Initialize imputers
@@ -118,13 +118,15 @@ def predict(data: Data):
         data_processed, *_ = process_data(
             data_df, categorical_features=cat_features, training=False, encoder=encoder
         )
+
+        data_processed = cleaning(data_processed)
         pred = inference(model, data_processed)
         to_ret = lb.inverse_transform(pred[0])
-        # return Response(status_code=status.HTTP_200_OK, content=str(to_ret[0]))
+        return JSONResponse(status_code=status.HTTP_200_OK, content=str(to_ret[0]))
         # return json.dumps({"prediction": f"{to_ret[0]}"})
-        return JSONResponse(content={"prediction": to_ret[0]})
+        # return to_ret[0]
     except Exception as e:
-        return Response(status_code=status.HTTP_200_OK, content=str(e))
+        return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content=str(e))
 
 
 if __name__ == "__main__":
