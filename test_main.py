@@ -54,7 +54,7 @@ def test_post_1():
     response_data = r.json()
     assert "prediction" in response_data or "error" in response_data
     if "prediction" in response_data:
-        assert response_data == {"prediction": ">50K"}
+        assert response_data == {"prediction": ">50K"}, r.text
     else:
         # Log or handle error case
         print("Error during inference:", response_data.get("error"))
@@ -71,7 +71,7 @@ def test_post_2():
     response_data = r.json()
     assert "prediction" in response_data or "error" in response_data
     if "prediction" in response_data:
-        assert response_data == {"prediction": "<=50K"}
+        assert response_data == {"prediction": "<=50K"}, r.text
     else:
         # Log or handle error case
         print("Error during inference:", response_data.get("error"))
