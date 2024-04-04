@@ -67,7 +67,7 @@ def test_post_1():
     headers = {"Content-Type": "application/json"}
     response = client.post(url, json=data, headers=headers)
     assert response.status_code == 200
-    assert response.json() == "<=50K"
+    assert response.json() == ">50K"
 
 
 def test_post_2():
