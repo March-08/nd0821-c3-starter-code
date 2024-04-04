@@ -2,32 +2,10 @@ import numpy as np
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 
 
-# def cleaning(data_processed):
-#     initial_list = list(data_processed[0][0:5])
-#     zeros_needed = 108 - len(initial_list)
-
-#     # Append zeros to the list
-#     initial_list += [0] * zeros_needed
-
-
-#     data_processed = [initial_list]
-#     print(data_processed)
-#     print(len(data_processed[0]))
-#     return data_processed
 def cleaning(data_processed):
     initial_list = data_processed[0]
     initial_list = [x for x in initial_list if isinstance(x, (int, float))]
-    print(initial_list)
     return [initial_list]
-
-
-# def cleaning(data_processed):
-#     print(data_processed)
-#     initial_list = list(data_processed[0])
-#     initial_list = [initial_list[:5] + initial_list[-103:]]
-#     print(initial_list)
-#     print("LEN: :", len(initial_list[0]))
-#     return initial_list
 
 
 def process_data(
