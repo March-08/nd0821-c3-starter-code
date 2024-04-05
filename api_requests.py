@@ -23,11 +23,10 @@ data = {
 
 # Convert the Python dictionary to a JSON string
 data_json = json.dumps(data)
-print(data_json)
+
 headers = {"Content-Type": "application/json"}
 response = requests.post(url, data=data_json, headers=headers)
 
-print(response)
 if response.status_code == 200:
     print("Success:")
     print(response.text)

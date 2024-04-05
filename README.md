@@ -108,5 +108,14 @@ Test cases example for the model:
 
 # API Deployment
 
-The app is deployed on Render
+The app is deployed on Render.
 Web App Link: https://nd0821-c3-starter-code-7h05.onrender.com/docs
+
+# Screenshots needed to complete the challenge
+
+<img src="assets/image.png"  width="500"/>
+<img src="assets/image_1.png"  width="500"/>
+<img src="assets/image_2.png"  width="500"/>
+<img src="assets/image_3.png"  width="500"/>
+<img src="assets/image_4.png"  width="500"/>
+<img src="assets/image.png"  width="500"/>
